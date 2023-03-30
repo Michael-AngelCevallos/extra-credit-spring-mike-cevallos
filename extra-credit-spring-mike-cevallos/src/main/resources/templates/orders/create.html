@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Create A Record!</title>
+    <style>
+        body{
+            background-color: cadetblue;
+
+        }
+
+        h1{
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<h1>Create an Order</h1>
+<hr>
+
+<br><br>
+
+<form action="/orders/create" method="post">
+    <label for-="email">Email: </label>
+    <input type="text" name="email" id="email">
+    <label for-="totalPrice">Enter total price: </label>
+    <input type="text" name="totalPrice" id="totalPrice">
+
+</form>
+
+</body>
+</html>
