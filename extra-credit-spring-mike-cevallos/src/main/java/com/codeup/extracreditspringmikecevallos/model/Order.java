@@ -21,9 +21,9 @@ public class Order {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
+    @Column(nullable = false)
     private String email;
-    @Column
+    @Column(nullable = false)
     private double totalPrice;
 
     public Order() {

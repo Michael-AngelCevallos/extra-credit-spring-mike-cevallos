@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method="POST" action="/posts/{id}/update">
+  <input type="hidden" name="_method" value="PUT">
+  <label for="email">Title:</label>
+  <input type="text" name="email" id="email" value="{order.email}">
+  <label for="totalPrice">Content:</label>
+  <input type="text" name="totalPrice" id="totalPrice" value="{order.totalPrice}">
+  <button type="submit">Update Post</button>
+</form>
+</body>
+</html>
