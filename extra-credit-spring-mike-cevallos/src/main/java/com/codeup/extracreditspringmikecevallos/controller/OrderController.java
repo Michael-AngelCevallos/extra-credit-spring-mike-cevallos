@@ -20,7 +20,7 @@ public class OrderController {
 
     @GetMapping("/orders") // shows ALL ORDERS
         public String allOrders (Model model){
-        model.addAttribute("ads", ordersDao.findAll());
+        model.addAttribute("orders", ordersDao.findAll());
             return "/orders/show";
         }
 
