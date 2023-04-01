@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 
 @Controller
 public class OrderController {
@@ -20,7 +22,7 @@ public class OrderController {
 
     @GetMapping("/orders") // shows ALL ORDERS
         public String allOrders (Model model){
-        model.addAttribute("orders", ordersDao.findAll());
+        model.addAttribute("orders", ordersDao.findAll()); // this is what adds the orders from db, uses /orders/show to main page
             return "/orders/show";
         }
 
@@ -49,26 +51,34 @@ public class OrderController {
 //    @GetMapping("/orders/{id}/update") // View the form to modify an existing order
 
     @GetMapping("/orders/{id}/update")
-    public String showUpdateForm(@PathVariable Long id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
         // TODO: Implement the code to retrieve the order with the given id and pass it to the view for updating
         Order order = ordersDao.getOrderById(id);
-        model.addAttribute("order", order);
+        model.addAttribute("orders", order);
         return "orders/updateOrder";
     }
-//
+
 //    @PostMapping("/orders/{id}/update") // Modifies the existing order
 
-//    @PostMapping("/orders/{id}/update")
-//    public String updateOrder(@PathVariable Long id, @ModelAttribute Order updatedOrder) {
-//        // TODO: Implement the code to update the order with the given id using the values from the updatedOrder object
-//        Order oldOrder = ordersDao.getOrderById(id);
-//        oldOrder.setEmail(updatedOrder.getEmail());
-//        oldOrder.setTotalPrice(updatedOrder.getTotalPrice());
-//        ordersDao.updateOrder(oldOrder);
-//        return "redirect:/orders" + id;
-//    }
+
+    @PostMapping("/orders/{id}/update")
+    public String updateOrder(@PathVariable("id") Long id,@RequestParam("email") String email, @RequestParam("totalPrice") Double totalPrice) {
+        Optional<Order> orderOptional = ordersDao.findById(id);
+        if (orderOptional.isPresent()) {
+            Order order = orderOptional.get();
+            order.setEmail(email);
+            order.setTotalPrice(totalPrice);
+           ordersDao.save(order);
+        }
+        return "redirect:/orders";
+    }
 
 //    @PostMapping("/orders/{id}/delete") // delete an order
 
+    @PostMapping("/orders/{id}/delete")
+    public String deleteOrder(@PathVariable("id") Long id) {
+        ordersDao.deleteById(id);
+        return "redirect:/orders";
+    }
 
 }

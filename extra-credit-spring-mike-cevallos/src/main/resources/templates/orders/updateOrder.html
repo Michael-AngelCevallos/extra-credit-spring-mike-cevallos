@@ -6,12 +6,12 @@
 </head>
 <body>
 
-<form method="POST" action="/posts/{id}/update">
+<form method="POST" action="/orders/{id}/update">
   <input type="hidden" name="_method" value="PUT">
-  <label for="email">Title:</label>
-  <input type="text" name="email" id="email" value="{order.email}">
+  <label for="email">User: </label>
+  <input type="text" name="email" id="email" placeholder="New Email">
   <label for="totalPrice">Content:</label>
-  <input type="text" name="totalPrice" id="totalPrice" value="{order.totalPrice}">
+  <input type="text" name="totalPrice" id="totalPrice" placeholder="Enter New Total Price">
   <button type="submit">Update Post</button>
 </form>
 </body>
