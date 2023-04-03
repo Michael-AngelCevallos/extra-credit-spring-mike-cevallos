@@ -6,13 +6,14 @@
 </head>
 <body>
 
-<form method="POST" action="/orders/{id}/update">
-  <input type="hidden" name="_method" value="PUT">
+<form method="Post" th:object="${orders}" th:action="@{/orders/{id}/update(id=${orders.id})}">
+<!--  <input type="hidden" name="_method" value="PUT">-->
   <label for="email">User: </label>
-  <input type="text" name="email" id="email" placeholder="New Email">
+  <input th:field="*{email}" type="text" name="email" id="email" placeholder="New Email">
   <label for="totalPrice">Content:</label>
-  <input type="text" name="totalPrice" id="totalPrice" placeholder="Enter New Total Price">
+  <input th:field="*{totalPrice}" type="text" name="totalPrice" id="totalPrice" placeholder="Enter New Total Price">
   <button type="submit">Update Post</button>
 </form>
 </body>
 </html>
+

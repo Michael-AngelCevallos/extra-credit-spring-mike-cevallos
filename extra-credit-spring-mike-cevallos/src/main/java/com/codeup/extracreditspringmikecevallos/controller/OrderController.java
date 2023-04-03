@@ -43,7 +43,7 @@ public class OrderController {
     @GetMapping("/orders/{id}") //View the information about a specific order
     public String showOneRecord(@PathVariable long id, Model model){
     Order order = ordersDao.findById(id);
-        model.addAttribute(order == null? new Order("not found", 0) : order);
+        model.addAttribute("orders", order);
         return "orders/show";
     }
 
@@ -60,17 +60,24 @@ public class OrderController {
 
 //    @PostMapping("/orders/{id}/update") // Modifies the existing order
 
+//    @PostMapping("/orders/{id}/update")
+//    public String updateOrder(@PathVariable("id") Long id, @ModelAttribute("orders") Order order) {
+//        order.setId(id);
+//        ordersDao.save(order);
+//        return "redirect:/orders";
+//    }
+
+
 
     @PostMapping("/orders/{id}/update")
-    public String updateOrder(@PathVariable("id") Long id,@RequestParam("email") String email, @RequestParam("totalPrice") Double totalPrice) {
-        Optional<Order> orderOptional = ordersDao.findById(id);
-        if (orderOptional.isPresent()) {
-            Order order = orderOptional.get();
-            order.setEmail(email);
-            order.setTotalPrice(totalPrice);
-           ordersDao.save(order);
-        }
+    public String updateOrder(@PathVariable("id") Long id, @ModelAttribute Order order) {
+        Order editedOrder = ordersDao.findById(id).get();
+        editedOrder.setEmail(order.getEmail());
+        editedOrder.setTotalPrice(order.getTotalPrice());
+        // update the post in database using id
+        ordersDao.save(editedOrder);
         return "redirect:/orders";
+
     }
 
 //    @PostMapping("/orders/{id}/delete") // delete an order
