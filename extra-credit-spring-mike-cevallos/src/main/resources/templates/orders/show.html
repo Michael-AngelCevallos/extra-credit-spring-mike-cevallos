@@ -25,6 +25,11 @@
 <body>
 <h1> THIS IS YOUR MAIN PAGE</h1>
 
+
+<form th:action="@{orders/create}" method="get">
+    <input type="submit" value="Create New Post" class="btn btn-success">
+</form>
+
 <br><br>
 <h3>Here Are You Users Orders: </h3>
 
